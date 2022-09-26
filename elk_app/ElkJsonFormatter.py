@@ -7,11 +7,12 @@ from datetime import datetime
 
 class ElkJsonFormatter(jsonlogger.JsonFormatter):
 
-    def __init__(self):
+    def __init__(self, package_name: str):
         self._log_format = ecs_logging.StdlibFormatter()
+        self.package_name = package_name
 
     def get_file_handler(self):
-        file_handler = logging.FileHandler('logs2.log')
+        file_handler = logging.FileHandler(f'log\{self.package_name}.log')
         file_handler.setLevel(logging.DEBUG)
         file_handler.setFormatter(self._log_format)
         return file_handler
